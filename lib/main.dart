@@ -66,40 +66,22 @@ class _CredencialPageState extends State<CredencialPage>
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Stack(
         children: [
-          // Barra naranja animada EN TODA LA PANTALLA
-          AnimatedBuilder(
-            animation: _animation,
-            builder: (context, child) {
-              return Positioned(
-                top: (screenH - 10) * _animation.value,
-                left: 0,
-                right: 0,
-                child: Container(
-                  height: 10,
-                  color: const Color.fromARGB(141, 255, 81, 23),
-                ),
-              );
-            },
-          ),
 
+//////// E L E M E N T O S   C A R N E T  U L I M A ////////
 // LOGO DE LA UNIVERSIDAD DE LIMA
 Positioned(
-  top: 40,
+  top: screenH * 0.06, // Proporcional a la pantalla
   left: 0,
   right: 0,
-child: Align(
-  alignment: Alignment.topCenter,
   child: Image.asset(
     'assets/images/Universidad_de_Lima_logo.png',
-    height: screenH * 0.10,),
+    height: screenH * 0.09,),
        ),
-),
-
 // LOGO DE LA UNIVERSIDAD DE LIMA  - END
 
 // NOMBRE DEL ESTUDIANTE Y CÓDIGO
 Positioned(
-  top: 200,
+  top: screenH * 0.235, // Proporcional a la pantalla
   left: 0,
   right: 0,
   child: Column(
@@ -107,15 +89,17 @@ Positioned(
       const Text(
         'FIGUEROA RODRIGUEZ MARIA',
         style: TextStyle(
-          fontSize: 25,
-          color: Color.fromARGB(255, 255, 81, 23),
+          fontFamily:'Inter',
+          fontSize: 26,
+          color: Color.fromARGB(255, 250, 117, 37),
         ),
       ),
       const Text(
         '20253926',
         style: TextStyle(
+          fontFamily:'Inter',
           fontSize: 35,
-          color: Color.fromARGB(255, 255, 81, 23),
+          color: Color.fromARGB(255, 250, 117, 37),
         ),
       ),
     ],
@@ -125,17 +109,17 @@ Positioned(
 
 // NOMBRE  "ALUMNO"
 Positioned(
-  top: 730,
+  top: screenH * 0.785, // Proporcional a la pantalla,
   left: 0,
   right: 0,
   child: Column(
     children: [    
-      
         const Text(
           'ALUMNO',
           style: TextStyle(
-            fontSize: 25,
-            color: Color.fromARGB(255, 255, 81, 23),
+            fontFamily:'Inter',
+            fontSize: 28,
+            color: Color.fromARGB(255, 250, 117, 37),
           ),
         ),
     ],
@@ -143,53 +127,64 @@ Positioned(
 ),
 // NOMBRE  "ALUMNO" - END 
 
-//CODIGO DE BARRAS
-        Positioned(
-  top: 800, // Cambia este valor para mover el código de barras
-  left: screenW * 0.08, // Centrado respecto al container (ajusta si es necesario)
-  right: screenW * 0.08,
-  child: Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10),
+// FOTO DEL ALUMNO     
+Positioned(
+  top: screenH * 0.42,
+  left: 0,
+  right: 0,
+  child: Column(
+    children: [      
+        Image.asset(
+          'assets/images/foto.jpeg',
+          height: screenH * 0.29,
+        ),
+    ],
+  ),
+),
+// FOTO DEL ALUMNO - END
+
+// BARRA NARANJA ANIMADA
+    AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return Positioned(
+          top: (screenH - 10) * _animation.value,
+          left: 0,
+          right: 0,
+          child: child!,
+        );
+      },
+      child: Container(
+        height: 18,
+        color: Color.fromARGB(157, 250, 119, 37),
+      ),
+    ),
+    // BARRA NARANJA ANIMADA - END
+
+    // CÓDIGO DE BARRAS -
+Positioned(
+  top: screenH * 0.86,
+  left: screenW * 0.04,
+  right: screenW * 0.04,
+  child: Container(
+    padding: const EdgeInsets.all(8),
+    decoration: BoxDecoration(
+      color: Colors.white, 
+      borderRadius: BorderRadius.circular(8),
+      
+    ),
     child: BarcodeWidget(
       barcode: Barcode.code128(),
       data: '20253926',
       width: double.infinity,
-      height: 55,
+      height: 58,
       drawText: false,
     ),
   ),
 ),
-//CODIGO DE BARRAS - END
-
-// Contenido de la credencial (con SafeArea)
-     
-Center(
-  child: Container(
-    width: screenW * 0.85,
-    height: screenH * 0.85,
-    decoration: BoxDecoration(
-      color: const Color.fromARGB(0, 201, 25, 25),
-      borderRadius: BorderRadius.circular(30),
-    ),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        const SizedBox(height: 200),
-
-// FOTO DEL ALUMNO       
-        Image.asset(
-          'assets/images/foto.jpeg',
-          height: screenH * 0.28,
-        ),
-// FOTO DEL ALUMNO - END
-
-        const SizedBox(height: 10),
-      ],
-    ),
-  ),
-),
-],
-),
+    // CÓDIGO DE BARRAS - END
+  ],
+)
 );
 }
 }
